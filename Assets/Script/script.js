@@ -182,7 +182,7 @@ function highScore () {
   finalDispalyEl.remove();
 
   highScoreTitle.textContent = "Highscores";
-  highScoreBtnBackEl.textContent = "Got Back"
+  highScoreBtnBackEl.textContent = "Go Back"
   highScoreBtnClearEl.textContent = "Clear Highscores"
 
   document.body.appendChild(highScoreDiv);
