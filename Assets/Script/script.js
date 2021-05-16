@@ -1,12 +1,13 @@
-//containerTop elements
+//Already Existing Elements
+//containerTop elements Navbar
 var highScoreEl = document.querySelector("#highScoreLink")
 var timerEl = document.querySelector("#timer");
 
-//containetertartQuiz elements
+//containetertartQuiz elements to start Quiz
 var containerStartQuizEl = document.querySelector(".containerStartQuiz");
 var startBtnEl = document.querySelector(".containerStartQuiz button");
 
-//containerQuestions elements
+//containerQuestions elements, Display Quiz Questions and answers
 var containerQuestionEl = document.querySelector(".containerQuestion")
 var questionEl = document.querySelector("#questions");
 var btn1El = document.querySelector("#btn1");
@@ -14,23 +15,25 @@ var btn2El = document.querySelector("#btn2");
 var btn3El = document.querySelector("#btn3");
 var btn4El = document.querySelector("#btn4");
 
-//create elements
-//Start quiz elements
+//Created Elements in Javascript
+//Elements created to add display at the bottom, either right or wrong
 var ansDisplayEl = document.createElement("div");
-var finalDispalyEl = document.createElement("section")
+ansDisplayEl.id = "ansDisplay";
 var finalDisplayTitle = document.createElement("p")
 var FinalDisplayScore =  document.createElement("p")
 
-//Enter High Score elements
+//Elemets Created to show high Score and enter initial
+var finalDispalyEl = document.createElement("section")
+finalDispalyEl.className="SubmitScrore"
 var contFinalDisplayInitial =  document.createElement("div")
 var FinalDisplayInitialTxt =  document.createElement("p")
 var FinalDisplayInitialTxtBox =  document.createElement("input")
 var FinalDispInitialTxtBoxSubmit =  document.createElement("button")
 FinalDispInitialTxtBoxSubmit.setAttribute("type", "submit")
 
-//Display High Score elements 
+//Display High Score elements Table
 var highScoreDiv = document.createElement("div")
-highScoreDiv.id = "displayDiv"
+highScoreDiv.className = "HighScoreDiv"
 var highScoreTitle = document.createElement("h3")
 var highScoreTableEl = document.createElement("table")
 highScoreTableEl.id = "myTable";
@@ -39,8 +42,10 @@ highScoreDivBtn.id = "myButtonDiv"
 var highScoreBtnBackEl = document.createElement("button")
 var highScoreBtnClearEl = document.createElement("button")
 
+// Global Variables
 var timeLeft = 75;
 var score = 0;
+var dispInt;
 
 //Object Array questions
 var myQuestions = [
@@ -104,6 +109,17 @@ function printAnswer(i){
   btn4El.textContent = myQuestions[i]["answers"]["btn4"];
 }
 
+function displayInterval (clr){
+  if (clr === 1) {
+    clearInterval(dispInt);
+  }
+  else {
+    dispInt = setInterval(function(){
+    ansDisplayEl.remove();
+  },1000)
+}
+}
+
 function checkAnswer(e){
   if(e.target.id === myQuestions[i-1]["correctAnswer"]){
     ans = "Correct!";
@@ -111,14 +127,13 @@ function checkAnswer(e){
     ans = "Wrong!";
     timeLeft=timeLeft-10;
   }
+
+  //Display right or wrong
   ansDisplayEl.textContent = ans;
   ansDisplayEl.className = "ansDisplay";
   containerQuestionEl.appendChild(ansDisplayEl);
-
-  // remove display after a second
-  displayInter = setInterval(function(){
-    ansDisplayEl.remove();
-  },1000)
+  
+  displayInterval(1);
 }
 
 var timeInterval;
@@ -147,8 +162,9 @@ function finalDisplay (){
   timerEl.textContent = timeLeft;
   score = timeLeft;
   document.body.appendChild(finalDispalyEl);
-  finalDisplayTitle.textContent = "Hello"
-  FinalDisplayScore.textContent= score;
+  finalDisplayTitle.textContent = "All Done!"
+  FinalDisplayScore.textContent= "Your final score is "+ score;
+  FinalDisplayInitialTxt.textContent = "Enter"
   FinalDispInitialTxtBoxSubmit.id = "submit"
   FinalDispInitialTxtBoxSubmit.textContent = "Submit"
 
@@ -159,12 +175,10 @@ function finalDisplay (){
   contFinalDisplayInitial.appendChild(FinalDisplayInitialTxtBox);
   contFinalDisplayInitial.appendChild(FinalDispInitialTxtBoxSubmit);
   
-  console.log(score);
-  console.log("cannot print");
 }
 
 function highScore () {
-  console.log("hello");
+  // console.log("hello");
   finalDispalyEl.remove();
 
   highScoreTitle.textContent = "Highscores";
@@ -182,31 +196,59 @@ function highScore () {
   intial=FinalDisplayInitialTxtBox.value;
   var localStorageContIni = localStorage.getItem("initial");
   var localStorageContScr = localStorage.getItem("score");
-
   var intials = [];
   var scores = [];
 
-  if(localStorageContIni === null ||localStorageContScr === null ){
+  intials = JSON.parse(localStorageContIni)
+  scores = JSON.parse(localStorageContScr)
+
+if(!intial) {
+  console.log("YES!!")
+  console.log(!intial);
+  if(localStorageContIni === null || localStorageContScr === null ){
     intials = [];
     scores = [];
+    console.log("local Storage empty")
+    highScoreTb(intials,scores);
   } else {
-    intials = JSON.parse(localStorageContIni)
-    scores = JSON.parse(localStorageContScr)
+    // intials.push(intial);
+    // scores.push(score);
+    console.log("local storage is not empty")
+    highScoreTb(intials,scores);
   }
-  
+} else {
+  console.log("submit button is pressed")
   intials.push(intial);
   scores.push(score);
-
   localStorage.setItem("initial", JSON.stringify(intials));
   localStorage.setItem("score", JSON.stringify(scores));
+  highScoreTb(intials,scores);
 
 
-  // creates a <table> element and a <tbody> element
+
+
+    // console.log("local storage not empty")
+    // console.log("No!!")
+    // console.log(intial)
+    // if(localStorageContIni === null ||localStorageContScr === null ){
+    //   intials = [];
+    //   scores = [];
+    // } else {
+    //   intials = JSON.parse(localStorageContIni)
+    //   scores = JSON.parse(localStorageContScr)
+    // }
+  
+  }
+}
+ 
+
+ function highScoreTb (intA,scoreB) {
+    // creates a <table> element and a <tbody> element
   var tbl = document.createElement("table");
   var tblBody = document.createElement("tbody");
 
   // creating all cells
-  for (var i = 0; i < intials.length; i++) {
+  for (var i = 0; i < intA.length; i++) {
     // creates a table row
     var row = document.createElement("tr");
 
@@ -215,8 +257,8 @@ function highScore () {
       // the end of the table row
       var cell = document.createElement("td");
       var cell2 = document.createElement("td")
-      var cellText = document.createTextNode((i+1)+"-"+intials[i]);
-      var cellText2 = document.createTextNode(scores[i]);
+      var cellText = document.createTextNode((i+1)+"-"+intA[i]);
+      var cellText2 = document.createTextNode(scoreB[i]);
       cell.appendChild(cellText);
       cell2.appendChild(cellText2);
       row.appendChild(cell);
@@ -230,78 +272,64 @@ function highScore () {
     // appends <table> into <body>
     highScoreTableEl.appendChild(tbl);
     // sets the border attribute of tbl to 2;
-  
 }
 
+
+function btnClickAns (parI,parE) {
+  if (i<myQuestions.length){
+    checkAnswer(parE);
+    printAnswer(parI);
+    displayInterval(0)
+    parI++;
+  } else {
+    checkAnswer(parE);
+    containerQuestionEl.remove();
+    finalDisplay();
+  }
+  return parI
+}
+
+// Event Listners
 var i =0;
 startBtnEl.addEventListener("click",startQuiz);
 
 btn1El.addEventListener("click",function(e){
-  if (i<myQuestions.length){
-    checkAnswer(e);
-    printAnswer(i);
-    i++;
-  } else {
-    checkAnswer(e);
-    containerQuestionEl.remove();
-    finalDisplay();
-    
-  }
-  });
+    i = btnClickAns(i,e);
+});
 
 btn2El.addEventListener("click",function(e){
-  if (i<myQuestions.length){
-    checkAnswer(e);
-    printAnswer(i);
-    i++;
-  } else {
-    containerQuestionEl.remove();
-    finalDisplay();
-  }
-  });
+  i = btnClickAns(i,e);
+});
 
 btn3El.addEventListener("click",function(e){
-  if (i<myQuestions.length){
-    checkAnswer(e);
-    printAnswer(i);
-    i++;
-  } else {
-    checkAnswer(e);
-    containerQuestionEl.remove();
-    finalDisplay();
-  }
-  });
+  i = btnClickAns(i,e);
+});
 
 btn4El.addEventListener("click",function(e){
-  if (i<myQuestions.length){
-    checkAnswer(e);
-    printAnswer(i);
-    i++;
-  } else {
-    checkAnswer(e);
-    containerQuestionEl.remove();
-    finalDisplay();
-  }
-  });
+  i = btnClickAns(i,e);
+});
 
-  FinalDispInitialTxtBoxSubmit.addEventListener("click",highScore)
+FinalDispInitialTxtBoxSubmit.addEventListener("click",highScore)
 
-  //Reload page Event Listner go back button
-  highScoreBtnBackEl.addEventListener("click",function(){
-    location.reload();
-  })
+//Reload page Event Listner go back button
+highScoreBtnBackEl.addEventListener("click",function(){
+  location.reload();
+})
 
+//Clear Storage Event Listner clear high score button
+highScoreBtnClearEl.addEventListener("click",function(){
+  localStorage.removeItem("score");
+  localStorage.removeItem("initial");
+  highScoreTableEl.remove()
+})
 
-  //Clear Storage Event Listner clear high score button
-  highScoreBtnClearEl.addEventListener("click",function(){
-    localStorage.removeItem("score");
-    localStorage.removeItem("initial");
-    highScoreTableEl.remove();
-  })
-
-  highScoreEl.addEventListener("click",function(){
-    alert("hi")
-    highScore();
-  })
+highScoreEl.addEventListener("click",function(){
+  containerStartQuizEl.remove()
+  containerQuestionEl.remove()
+  finalDispalyEl.remove()
+  ansDisplayEl.remove()
+  highScoreTableEl.remove();
+  highScore();
+})
 
   

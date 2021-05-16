@@ -77,6 +77,7 @@
     padding-top: .2rem;
     border-top: solid thin black;
     width: 30%;
+    color: blueviolet;
 }
 
 #displayDiv {
@@ -105,3 +106,37 @@
 #myButtonDiv{
     padding: .5rem;
 }
+
+.HighScoreDiv {
+  background-color: red;
+  display:flex;
+  flex-direction:column;
+  padding:1rem;
+  width: 30%;
+  margin:0 auto;
+}
+
+.SubmitScrore {
+  background-color: coral;
+  display:flex;
+  flex-direction:column;
+  padding:1rem;
+  width: 30%;
+  margin:0 auto;
+}
+
+.SubmitScrore div {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: cornflowerblue;
+  align-items: center;
+}
+
+.SubmitScrore div button {
+  margin: .3rem;
+  background-color: purple;
+    border-radius:.4rem;
+    border:none;
+    padding:.2rem;
+    color:whitesmoke;
+3
