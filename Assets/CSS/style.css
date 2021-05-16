@@ -3,6 +3,10 @@
     padding:0;
   }
   
+  table {
+    border-collapse: collapse;
+  }
+  
   .containerTop {
     display:flex;
     justify-content: space-between;
@@ -83,13 +87,19 @@
 #displayDiv {
     text-align: center;
     align-items: center;
+    
 }
 
-#displayDiv #myTable {
+#displayDiv {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-align: left;
+    text-align: left;   
+}
+
+
+#myTable tbody tr:nth-child(odd){
+  background-color: rgb(238, 175, 238);
 }
 
 #myButtonDiv  button{
@@ -108,7 +118,6 @@
 }
 
 .HighScoreDiv {
-  background-color: red;
   display:flex;
   flex-direction:column;
   padding:1rem;
@@ -117,7 +126,6 @@
 }
 
 .SubmitScrore {
-  background-color: coral;
   display:flex;
   flex-direction:column;
   padding:1rem;
@@ -128,7 +136,6 @@
 .SubmitScrore div {
   display: flex;
   flex-wrap: wrap;
-  background-color: cornflowerblue;
   align-items: center;
 }
 
@@ -139,4 +146,4 @@
     border:none;
     padding:.2rem;
     color:whitesmoke;
-3
+}
