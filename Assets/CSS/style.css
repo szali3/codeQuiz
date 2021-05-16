@@ -1,0 +1,107 @@
+* {
+    margin:0;
+    padding:0;
+  }
+  
+  .containerTop {
+    display:flex;
+    justify-content: space-between;
+    padding:.8rem;
+  }
+  
+  .containerTop a{
+    text-decoration:none;
+  }
+  
+  .containerStartQuiz {
+    font-size:1rem;
+    display:flex;
+    flex-wrap: wrap;
+    width:30%;
+    text-align:center;
+    justify-content:center;
+    margin:0 auto;
+  }
+  
+  .containerStartQuiz > * {
+    margin:.5rem;
+  }
+  
+  .containerStartQuiz button {
+    font-size: .8rem;
+    font-weight:lighter;
+    padding:.5rem;
+    color:whitesmoke;
+    background-color: purple;
+    border-radius:.4rem;
+    border:none;
+  }
+  
+  .containerBtn {
+    display:flex;
+    flex-direction:column;
+    padding:1rem;
+    width: 30%;
+  }
+  
+  .containerBtn button{
+    width: fit-content;
+    margin:.2rem;
+    background-color:purple;
+    color:white;
+    text-align: left;
+    border-radius:.4rem;
+    padding: .3rem;
+    border:none;
+    flex-grow: 0;
+  }
+
+  .containerBtn button:hover{
+    opacity: 50%;
+  }
+  
+  .containerQuestion {
+    display:flex;
+    flex-direction:column;
+    visibility:hidden;
+    display: flex;
+    align-items: center;
+  }
+
+  #questions {
+     margin-left: 1rem;
+     width:31%;
+}
+.ansDisplay{
+    font-style: italic;
+    padding-top: .2rem;
+    border-top: solid thin black;
+    width: 30%;
+}
+
+#displayDiv {
+    text-align: center;
+    align-items: center;
+}
+
+#displayDiv #myTable {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: left;
+}
+
+#myButtonDiv  button{
+    font-size: .8rem;
+    font-weight:lighter;
+    padding:.5rem;
+    color:whitesmoke;
+    background-color: purple;
+    border-radius:.4rem;
+    border:none;
+    margin-left :.2rem;
+}
+
+#myButtonDiv{
+    padding: .5rem;
+}
