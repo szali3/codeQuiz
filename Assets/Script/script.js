@@ -179,7 +179,6 @@ function finalDisplay (){
 
 function highScore () {
 
-
   finalDispalyEl.remove();
 
   highScoreTitle.textContent = "Highscores";
@@ -208,6 +207,7 @@ function highScore () {
     scores = JSON.parse(localStorageContScr)
   }
 
+  // Make sure table is not created again if submit button is not pressed
   if(!intial) {
     highScoreTb(intials,scores, cnt);  
     cnt++
@@ -217,7 +217,10 @@ function highScore () {
     localStorage.setItem("initial", JSON.stringify(intials));
     localStorage.setItem("score", JSON.stringify(scores));
     highScoreTb(intials,scores, cnt);
+    cnt++;
   }
+
+  FinalDisplayInitialTxtBox.value = "";
     // intials.push(intial);
     // scores.push(score);
 }
@@ -237,9 +240,6 @@ function highScore () {
       // creates a table row
       var row = document.createElement("tr");
 
-        // Create a <td> element and a text node, make the text
-        // node the contents of the <td>, and put the <td> at
-        // the end of the table row
         var cell = document.createElement("td");
         var cell2 = document.createElement("td")
         var cellText = document.createTextNode((i+1)+"-"+intA[i]);
@@ -249,14 +249,10 @@ function highScore () {
         row.appendChild(cell);
         row.appendChild(cell2);
 
-      // add the row to the end of the table body
       tblBody.appendChild(row);
     }
-      // put the <tbody> in the <table>
       tbl.appendChild(tblBody);
-      // appends <table> into <body>
       highScoreTableEl.appendChild(tbl);
-      // sets the border attribute of tbl to 2;
       }
 }
 
