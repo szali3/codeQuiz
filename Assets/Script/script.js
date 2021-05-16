@@ -219,7 +219,7 @@ function highScore () {
     highScoreTb(intials,scores, cnt);
     cnt++;
   }
-
+  //reset value
   FinalDisplayInitialTxtBox.value = "";
     // intials.push(intial);
     // scores.push(score);
@@ -239,7 +239,6 @@ function highScore () {
     for (var i = 0; i < intA.length; i++) {
       // creates a table row
       var row = document.createElement("tr");
-
         var cell = document.createElement("td");
         var cell2 = document.createElement("td")
         var cellText = document.createTextNode((i+1)+"-"+intA[i]);
