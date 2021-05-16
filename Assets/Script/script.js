@@ -46,7 +46,7 @@ var highScoreBtnClearEl = document.createElement("button")
 var timeLeft = 75;
 var score = 0;
 var dispInt;
-
+var cnt = 0;
 //Object Array questions
 var myQuestions = [
   {
@@ -178,7 +178,8 @@ function finalDisplay (){
 }
 
 function highScore () {
-  // console.log("hello");
+
+
   finalDispalyEl.remove();
 
   highScoreTitle.textContent = "Highscores";
@@ -193,87 +194,71 @@ function highScore () {
   highScoreDivBtn.appendChild(highScoreBtnClearEl);
 
   //Initials
-  intial=FinalDisplayInitialTxtBox.value;
+  var intial=FinalDisplayInitialTxtBox.value;
   var localStorageContIni = localStorage.getItem("initial");
   var localStorageContScr = localStorage.getItem("score");
   var intials = [];
   var scores = [];
 
-  intials = JSON.parse(localStorageContIni)
-  scores = JSON.parse(localStorageContScr)
-
-if(!intial) {
-  console.log("YES!!")
-  console.log(!intial);
-  if(localStorageContIni === null || localStorageContScr === null ){
+  if (localStorageContIni === null || localStorageContScr === null ){
     intials = [];
     scores = [];
-    console.log("local Storage empty")
-    highScoreTb(intials,scores);
   } else {
+    intials = JSON.parse(localStorageContIni)
+    scores = JSON.parse(localStorageContScr)
+  }
+
+  if(!intial) {
+    highScoreTb(intials,scores, cnt);  
+    cnt++
+  }  else {
+    intials.push(intial);
+    scores.push(score);
+    localStorage.setItem("initial", JSON.stringify(intials));
+    localStorage.setItem("score", JSON.stringify(scores));
+    highScoreTb(intials,scores, cnt);
+  }
     // intials.push(intial);
     // scores.push(score);
-    console.log("local storage is not empty")
-    highScoreTb(intials,scores);
-  }
-} else {
-  console.log("submit button is pressed")
-  intials.push(intial);
-  scores.push(score);
-  localStorage.setItem("initial", JSON.stringify(intials));
-  localStorage.setItem("score", JSON.stringify(scores));
-  highScoreTb(intials,scores);
-
-
-
-
-    // console.log("local storage not empty")
-    // console.log("No!!")
-    // console.log(intial)
-    // if(localStorageContIni === null ||localStorageContScr === null ){
-    //   intials = [];
-    //   scores = [];
-    // } else {
-    //   intials = JSON.parse(localStorageContIni)
-    //   scores = JSON.parse(localStorageContScr)
-    // }
-  
-  }
 }
  
-
- function highScoreTb (intA,scoreB) {
+ function highScoreTb (intA,scoreB, contC) {
+ 
+  // Check if table already without pressing submit if there then exit function
+  if (contC >= 1) {
+    return
+  } else {
     // creates a <table> element and a <tbody> element
-  var tbl = document.createElement("table");
-  var tblBody = document.createElement("tbody");
+    var tbl = document.createElement("table");
+    var tblBody = document.createElement("tbody");
 
-  // creating all cells
-  for (var i = 0; i < intA.length; i++) {
-    // creates a table row
-    var row = document.createElement("tr");
+    // creating all cells
+    for (var i = 0; i < intA.length; i++) {
+      // creates a table row
+      var row = document.createElement("tr");
 
-      // Create a <td> element and a text node, make the text
-      // node the contents of the <td>, and put the <td> at
-      // the end of the table row
-      var cell = document.createElement("td");
-      var cell2 = document.createElement("td")
-      var cellText = document.createTextNode((i+1)+"-"+intA[i]);
-      var cellText2 = document.createTextNode(scoreB[i]);
-      cell.appendChild(cellText);
-      cell2.appendChild(cellText2);
-      row.appendChild(cell);
-      row.appendChild(cell2);
+        // Create a <td> element and a text node, make the text
+        // node the contents of the <td>, and put the <td> at
+        // the end of the table row
+        var cell = document.createElement("td");
+        var cell2 = document.createElement("td")
+        var cellText = document.createTextNode((i+1)+"-"+intA[i]);
+        var cellText2 = document.createTextNode(scoreB[i]);
+        cell.appendChild(cellText);
+        cell2.appendChild(cellText2);
+        row.appendChild(cell);
+        row.appendChild(cell2);
 
-    // add the row to the end of the table body
-    tblBody.appendChild(row);
-  }
-    // put the <tbody> in the <table>
-    tbl.appendChild(tblBody);
-    // appends <table> into <body>
-    highScoreTableEl.appendChild(tbl);
-    // sets the border attribute of tbl to 2;
+      // add the row to the end of the table body
+      tblBody.appendChild(row);
+    }
+      // put the <tbody> in the <table>
+      tbl.appendChild(tblBody);
+      // appends <table> into <body>
+      highScoreTableEl.appendChild(tbl);
+      // sets the border attribute of tbl to 2;
+      }
 }
-
 
 function btnClickAns (parI,parE) {
   if (i<myQuestions.length){
@@ -287,7 +272,7 @@ function btnClickAns (parI,parE) {
     finalDisplay();
   }
   return parI
-}
+};
 
 // Event Listners
 var i =0;
