@@ -101,6 +101,7 @@ var myQuestions = [
   }
 ];
 
+//Display ans for multiple choice 
 function printAnswer(i){
   questionEl.textContent = myQuestions[i]["question"]
   btn1El.textContent = myQuestions[i]["answers"]["btn1"];
@@ -109,6 +110,7 @@ function printAnswer(i){
   btn4El.textContent = myQuestions[i]["answers"]["btn4"];
 }
 
+//shows if ans is wrong or right for 1 sec
 function displayInterval (clr){
   if (clr === 1) {
     clearInterval(dispInt);
@@ -120,6 +122,7 @@ function displayInterval (clr){
 }
 }
 
+// Check Function
 function checkAnswer(e){
   if(e.target.id === myQuestions[i-1]["correctAnswer"]){
     ans = "Correct!";
@@ -138,6 +141,7 @@ function checkAnswer(e){
 
 var timeInterval;
 
+// start Quiz counter
 function startTime (){
   timeInterval = setInterval (function(){
     if (timeLeft < 0) {
@@ -149,14 +153,16 @@ function startTime (){
   },1000)
 }
 
+// Start Quiz
 function startQuiz () {
-  startTime(true);
+  startTime();
   containerStartQuizEl.remove();
   document.querySelector(".containerQuestion").style.visibility = "visible";
   printAnswer(i);
   i++;
 };
 
+//Enter your score and Submit 
 function finalDisplay (){
   clearInterval(timeInterval);
   if (timeLeft<0) timeLeft=0;
@@ -178,6 +184,7 @@ function finalDisplay (){
   
 }
 
+//Display High Score
 function highScore () {
 
   finalDispalyEl.remove();
@@ -199,6 +206,7 @@ function highScore () {
   var intials = [];
   var scores = [];
 
+  //Check to see if local storage is empty or not
   if (localStorageContIni === null || localStorageContScr === null ){
     intials = [];
     scores = [];
@@ -255,6 +263,7 @@ function highScore () {
       }
 }
 
+// Checking Ans Algorithm
 function btnClickAns (parI,parE) {
   if (i<myQuestions.length){
     checkAnswer(parE);
@@ -303,6 +312,7 @@ highScoreBtnClearEl.addEventListener("click",function(){
   highScoreTableEl.remove()
 })
 
+//Show highscore on click
 highScoreEl.addEventListener("click",function(){
   containerStartQuizEl.remove()
   containerQuestionEl.remove()
