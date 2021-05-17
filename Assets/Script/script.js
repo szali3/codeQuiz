@@ -159,6 +159,7 @@ function startQuiz () {
 
 function finalDisplay (){
   clearInterval(timeInterval);
+  if (timeLeft<0) timeLeft=0;
   timerEl.textContent = timeLeft;
   score = timeLeft;
   document.body.appendChild(finalDispalyEl);
@@ -180,7 +181,6 @@ function finalDisplay (){
 function highScore () {
 
   finalDispalyEl.remove();
-
   highScoreTitle.textContent = "Highscores";
   highScoreBtnBackEl.textContent = "Go Back"
   highScoreBtnClearEl.textContent = "Clear Highscores"

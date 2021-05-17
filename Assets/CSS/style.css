@@ -2,6 +2,10 @@
     margin:0;
     padding:0;
   }
+
+  .btnHv {
+      background-color: rgb(229, 149, 229);
+  }
   
   table {
     border-collapse: collapse;
@@ -40,6 +44,10 @@
     border-radius:.4rem;
     border:none;
   }
+
+  .containerStartQuiz button:hover{
+    background-color: rgb(229, 149, 229) ;
+  }
   
   .containerBtn {
     display:flex;
@@ -61,7 +69,7 @@
   }
 
   .containerBtn button:hover{
-    opacity: 50%;
+    background-color: rgb(229, 149, 229);
   }
   
   .containerQuestion {
@@ -111,6 +119,10 @@
     border-radius:.4rem;
     border:none;
     margin-left :.2rem;
+}
+
+#myButtonDiv button:hover{
+  background-color: rgb(238, 175, 238);
 }
 
 #myButtonDiv{
