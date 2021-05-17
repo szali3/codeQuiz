@@ -310,6 +310,7 @@ highScoreBtnClearEl.addEventListener("click",function(){
   localStorage.removeItem("score");
   localStorage.removeItem("initial");
   highScoreTableEl.remove()
+  highScoreEl.style.pointerEvents = "none";
 })
 
 //Show highscore on click
